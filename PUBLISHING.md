@@ -4,11 +4,32 @@
 The registry stores metadata only, and the entry is what makes Aidoo discoverable from
 the clients and directories that read the registry.
 
-The name `ai.aidoo/aidoo` is a domain namespace, so publishing requires proving control
-of `aidoo.ai` with a DNS TXT record. Keep `key.pem` out of the repository and in the
-password manager: it signs every future publication.
+The server is published as **`io.github.eantoniomota/aidoo-mcp`**, under the GitHub
+namespace, which needs nothing beyond a GitHub account:
 
-## One time: create the signing key and the DNS record
+```bash
+mcp-publisher validate
+mcp-publisher login github
+mcp-publisher publish
+```
+
+Bump `version` in `server.json` before each publication: the registry rejects a version
+that already exists.
+
+## Moving to the brand namespace
+
+`ai.aidoo/aidoo` reads better than a personal namespace and is still free. It is a
+domain namespace, so it requires proving control of `aidoo.ai`. Once the entry is
+published under that name, mark the old one as deprecated:
+
+```bash
+mcp-publisher status io.github.eantoniomota/aidoo-mcp --status deprecated
+```
+
+Domain namespaces also constrain the remote URLs to the domain and its subdomains,
+which `mcp.aidoo.ai` already satisfies.
+
+### One time: create the signing key and the DNS record
 
 ```bash
 openssl genpkey -algorithm Ed25519 -out key.pem
@@ -26,16 +47,14 @@ under a selector such as `_mcp-auth`. Wait for propagation, then check it:
 dig +short TXT aidoo.ai | grep MCPv1
 ```
 
-## Every release
+### Then publish under the domain
+
+Set `name` to `ai.aidoo/aidoo` in `server.json`, then:
 
 ```bash
-mcp-publisher validate
 mcp-publisher login dns --domain aidoo.ai --private-key "$(openssl pkey -in key.pem -noout -text | grep -A3 priv | tail -n +2 | tr -d ' :\n')"
 mcp-publisher publish
 ```
-
-Bump `version` in `server.json` before each publication: the registry rejects a version
-that already exists.
 
 ## Adding the PyPI package
 
