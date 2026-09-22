@@ -192,10 +192,10 @@ streamable HTTP.
 ## Development
 
 ```bash
-uv venv
-uv pip install -e ".[dev]"
+uv sync
 uv run pytest
 uv run ruff check .
+uv run ruff format --check .
 ```
 
 ## License

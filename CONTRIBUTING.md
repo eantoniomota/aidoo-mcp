@@ -7,8 +7,7 @@ Issues and pull requests are welcome.
 ```bash
 git clone https://github.com/eantoniomota/aidoo-mcp.git
 cd aidoo-mcp
-uv venv
-uv pip install -e ".[dev]"
+uv sync
 uv run pytest
 uv run ruff check .
 ```
