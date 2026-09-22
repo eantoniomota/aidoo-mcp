@@ -4,63 +4,52 @@
 The registry stores metadata only, and the entry is what makes Aidoo discoverable from
 the clients and directories that read the registry.
 
-The server is published as **`io.github.eantoniomota/aidoo-mcp`**, under the GitHub
-namespace, which needs nothing beyond a GitHub account:
+The server is published as **`ai.aidoo/aidoo`**, the reverse DNS form of `aidoo.ai`.
+That namespace is proven with a TXT record on the apex of the domain, signed by
+`key.pem`. The key never leaves the machine and is excluded from the repository: keep
+it in the password manager, because regenerating it means changing the DNS record.
+
+## Every release
 
 ```bash
 mcp-publisher validate
+mcp-publisher login dns --domain aidoo.ai \
+  --private-key "$(openssl pkey -in key.pem -noout -text | grep -A3 priv | tail -n +2 | tr -d ' :\n')"
+mcp-publisher publish
+```
+
+Bump `version` in `server.json` first: the registry rejects a version that already
+exists. On macOS the system `openssl` is LibreSSL and cannot read Ed25519 keys, so use
+`/opt/homebrew/opt/openssl@3/bin/openssl`.
+
+## The DNS record
+
+```
+aidoo.ai.  IN  TXT  "v=MCPv1; k=ed25519; p=<public key>"
+```
+
+It sits on the **apex**, next to the SPF and Google records, never under a selector such
+as `_mcp-auth`. Regenerate the value with:
+
+```bash
+openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64
+```
+
+## Retiring an entry
+
+A remote URL belongs to a single server entry, so republishing under a different name
+fails with `remote URL ... is already used` until the previous entry is retired:
+
+```bash
 mcp-publisher login github
-mcp-publisher publish
-```
-
-Bump `version` in `server.json` before each publication: the registry rejects a version
-that already exists.
-
-## Moving to the brand namespace
-
-`ai.aidoo/aidoo` reads better than a personal namespace and is still free. It is a
-domain namespace, so it requires proving control of `aidoo.ai`. Once the entry is
-published under that name, mark the old one as deprecated:
-
-```bash
-mcp-publisher status io.github.eantoniomota/aidoo-mcp --status deprecated
-```
-
-Domain namespaces also constrain the remote URLs to the domain and its subdomains,
-which `mcp.aidoo.ai` already satisfies.
-
-### One time: create the signing key and the DNS record
-
-```bash
-openssl genpkey -algorithm Ed25519 -out key.pem
-PUBLIC_KEY="$(openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64)"
-echo "aidoo.ai. IN TXT \"v=MCPv1; k=ed25519; p=${PUBLIC_KEY}\""
-```
-
-On macOS the system `openssl` is LibreSSL and cannot generate Ed25519 keys. Use
-`/opt/homebrew/opt/openssl@3/bin/openssl` instead.
-
-Add the printed value as a TXT record on the **apex** of `aidoo.ai` in Cloudflare, not
-under a selector such as `_mcp-auth`. Wait for propagation, then check it:
-
-```bash
-dig +short TXT aidoo.ai | grep MCPv1
-```
-
-### Then publish under the domain
-
-Set `name` to `ai.aidoo/aidoo` in `server.json`, then:
-
-```bash
-mcp-publisher login dns --domain aidoo.ai --private-key "$(openssl pkey -in key.pem -noout -text | grep -A3 priv | tail -n +2 | tr -d ' :\n')"
-mcp-publisher publish
+mcp-publisher status --status deleted --all-versions <old server name>
 ```
 
 ## Adding the PyPI package
 
 Once `aidoo-mcp` is on PyPI, add a `packages` block so clients can install the bridge
-from the registry entry. PyPI ownership is proven by shipping the server name in the
-package metadata, so `pyproject.toml` needs this before the release that follows:
+from the registry entry. PyPI ownership is proven through the package metadata, so
+`pyproject.toml` needs this before the release that follows:
 
 ```toml
 [project]

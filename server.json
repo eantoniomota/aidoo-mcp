@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.eantoniomota/aidoo-mcp",
+  "name": "ai.aidoo/aidoo",
   "title": "Aidoo for Odoo",
   "description": "Query and update your Odoo ERP in plain language, under your own Odoo access rules.",
   "version": "1.0.0",
