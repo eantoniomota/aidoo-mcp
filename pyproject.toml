@@ -9,7 +9,7 @@ description = "Connect any MCP client to your Odoo ERP through Aidoo"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
-authors = [{ name = "Aidoo", email = "contact@aidoo.ai" }]
+authors = [{ name = "Aidoo", email = "support@aidoo.ai" }]
 keywords = ["odoo", "erp", "mcp", "model-context-protocol", "aidoo"]
 classifiers = [
     "Development Status :: 4 - Beta",
