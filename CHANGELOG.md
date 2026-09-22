@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-09-22
+
+### Added
+
+- registry ownership marker in the package keywords, so the PyPI package can be
+  attached to the `ai.aidoo/aidoo` entry of the MCP Registry
+
+### Changed
+
+- contact address in the package metadata is now the public support mailbox
+
 ## [0.1.0] - 2026-09-22
 
 ### Added

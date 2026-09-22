@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aidoo-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Connect any MCP client to your Odoo ERP through Aidoo"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 authors = [{ name = "Aidoo", email = "support@aidoo.ai" }]
-keywords = ["odoo", "erp", "mcp", "model-context-protocol", "aidoo"]
+keywords = ["odoo", "erp", "mcp", "model-context-protocol", "aidoo", "mcp-name:ai.aidoo/aidoo"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",

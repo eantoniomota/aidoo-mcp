@@ -3,7 +3,7 @@
   "name": "ai.aidoo/aidoo",
   "title": "Aidoo for Odoo",
   "description": "Query and update your Odoo ERP in plain language, under your own Odoo access rules.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "websiteUrl": "https://aidoo.ai",
   "repository": {
     "url": "https://github.com/eantoniomota/aidoo-mcp",
@@ -17,6 +17,25 @@
     {
       "type": "sse",
       "url": "https://mcp.aidoo.ai/sse"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "aidoo-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "AIDOO_API_KEY",
+          "description": "Aidoo API key, prefixed aid_live_",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
     }
   ]
 }
