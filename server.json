@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.aidoo/aidoo",
+  "title": "Aidoo for Odoo",
+  "description": "Query and update your Odoo ERP in plain language, under your own Odoo access rules.",
+  "version": "1.0.0",
+  "websiteUrl": "https://aidoo.ai",
+  "repository": {
+    "url": "https://github.com/eantoniomota/aidoo-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.aidoo.ai/mcp"
+    },
+    {
+      "type": "sse",
+      "url": "https://mcp.aidoo.ai/sse"
+    }
+  ]
+}
