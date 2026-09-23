@@ -28,7 +28,7 @@ exposes is available the moment Aidoo ships it, with no update needed here.
 
 ## Requirements
 
-- Python 3.10 or newer
+- Python 3.10+ (or Node.js 18+, see the [Node build](npm/) below) 
 - An [Aidoo account](https://app.aidoo.ai/register) with an Odoo connection
 - An Aidoo API key, prefixed `aid_live_`, created from the API keys page of your workspace
 
@@ -46,6 +46,13 @@ Or install it:
 pipx install aidoo-mcp
 # or
 pip install aidoo-mcp
+```
+
+Prefer Node over Python? The [`npm/`](npm/) directory ships the same bridge for
+`npx`, with no Python dependency:
+
+```bash
+npx aidoo-mcp --check
 ```
 
 ## Check your setup

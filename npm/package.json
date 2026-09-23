@@ -1,0 +1,44 @@
+{
+  "name": "aidoo-mcp",
+  "version": "0.1.0",
+  "description": "Stdio bridge connecting any MCP client to your Odoo ERP through Aidoo",
+  "type": "module",
+  "bin": {
+    "aidoo-mcp": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "odoo",
+    "erp",
+    "aidoo",
+    "mcp-name:ai.aidoo/aidoo"
+  ],
+  "license": "MIT",
+  "author": "Aidoo <support@aidoo.ai>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eantoniomota/aidoo-mcp.git",
+    "directory": "npm"
+  },
+  "homepage": "https://aidoo.ai/docs",
+  "bugs": {
+    "url": "https://github.com/eantoniomota/aidoo-mcp/issues"
+  }
+}
